@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        Task manager
+    </title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+    <form class="top" action="/create-task" method="post">
+        <h3>Enter task title</h3>
+        <div>
+            <input type="text" name="title" placeholder="Enter task title">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <ul id="list">
+        <li>
+            <div>#</div>
+            <div>Task Title</div>
+            <div>Data Added</div>
+            <div></div>
+            <div></div>
+        </li>
+        <% if(tasks.length> 0) { tasks.forEach((task, index) => { %>
+            <li>
+                <div><%= index + 1 %></div>
+                <div>
+                    <input type="text" value="<%= task.title %>" readonly>
+
+                </div>
+                <div>
+                    <%= task.updatedAt.toLocaleDateString("en-US") %>
+                </div>
+                <div>
+                    <form action="/delete" method="post">
+                        <input type="hidden" name="taskId" value="<%=task.id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+                <div>
+                    <button type="button" id="edit-button">Edit</button>
+                </div>
+            </li>
+            <% })} else { %>
+                <li style="text-align: center;">
+                    <h3 style="text-align: center; width: 100%;">There is no task yet!!!</h3>
+                </li>
+            <% } %>
+    </ul>
+</body>
+
+</html>
